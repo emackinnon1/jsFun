@@ -1,17 +1,51 @@
-const { kitties } = require('./datasets/kitties');
-const { clubs } = require('./datasets/clubs');
-const { mods } = require('./datasets/mods');
-const { cakes } = require('./datasets/cakes');
-const { classrooms } = require('./datasets/classrooms');
-const { breweries } = require('./datasets/breweries');
-const { nationalParks } = require('./datasets/nationalParks');
-const { books } = require('./datasets/books');
-const { weather } = require('./datasets/weather');
-const { instructors, cohorts } = require('./datasets/turing');
-const { bosses, sidekicks } = require('./datasets/bosses');
-const { constellations, stars } = require('./datasets/astronomy');
-const { weapons, characters } = require('./datasets/ultima');
-const { dinosaurs, humans, movies } = require('./datasets/dinosaurs');
+const {
+  kitties
+} = require('./datasets/kitties');
+const {
+  clubs
+} = require('./datasets/clubs');
+const {
+  mods
+} = require('./datasets/mods');
+const {
+  cakes
+} = require('./datasets/cakes');
+const {
+  classrooms
+} = require('./datasets/classrooms');
+const {
+  breweries
+} = require('./datasets/breweries');
+const {
+  nationalParks
+} = require('./datasets/nationalParks');
+const {
+  books
+} = require('./datasets/books');
+const {
+  weather
+} = require('./datasets/weather');
+const {
+  instructors,
+  cohorts
+} = require('./datasets/turing');
+const {
+  bosses,
+  sidekicks
+} = require('./datasets/bosses');
+const {
+  constellations,
+  stars
+} = require('./datasets/astronomy');
+const {
+  weapons,
+  characters
+} = require('./datasets/ultima');
+const {
+  dinosaurs,
+  humans,
+  movies
+} = require('./datasets/dinosaurs');
 
 
 
@@ -24,24 +58,32 @@ const { dinosaurs, humans, movies } = require('./datasets/dinosaurs');
 // DATASET: kitties from ./datasets/kitties
 const kittyPrompts = {
   orangeKittyNames() {
-
     // Return an array of just the names of kitties who are orange e.g.
     // ['Tiger', 'Snickers']
-    const result = 'REPLACE WITH YOUR RESULT HERE';
-    return result;
+    let result = kitties.filter(kitty => {
+      return kitty.color == 'orange'
+    });
+    let result1 = result.map(kitty => {
+      return kitty.name;
+    });
+
+    return result1;
 
     // Annotation:
-    // Write your annotation here as a comment
+    // filter original array for orange kitties
+    // map over filtered array to only include names
   },
 
   sortByAge() {
     // Sort the kitties by their age
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = kitties.sort((a, b) => {
+      return b.age - a.age;
+    });
     return result;
 
     // Annotation:
-    // Write your annotation here as a comment
+    // use compare function to sort kitties by age
   },
 
   growUp() {
@@ -58,8 +100,12 @@ const kittyPrompts = {
     // },
     // ...etc]
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
-    return result;
+    const grownKitties = kitties.map(kitty => {
+      kitty.age += 2;
+      return kitty;
+    });
+    const sortedKitties = grownKitties.sort((a, b) => b.age - a.age);
+    return sortedKitties;
   }
 };
 
@@ -90,9 +136,17 @@ const clubPrompts = {
     //   ...etc
     // }
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
-    return result;
-
+    const result = clubs.reduce((acc, currClub) => {
+    currClub.members.forEach((member, i) => {
+        if (!acc[member]) {
+          acc[member] = [];
+        }
+        acc[member].push(currClub.club);
+    });
+    return acc;
+  }, {});
+    // return result;
+    console.log(result);
     // Annotation:
     // Write your annotation here as a comment
   }
@@ -332,7 +386,9 @@ const bookPrompts = {
     //  { title: 'Life of Pi', year: 2001 },
     //  { title: 'The Curious Incident of the Dog in the Night-Time', year: 2003 }]
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = books.reduce((acc, book) => {
+      
+    });
     return result;
 
     // Annotation:
@@ -355,7 +411,12 @@ const weatherPrompts = {
     // return an array of all the average temperatures. Eg:
     // [ 40, 40, 44.5, 43.5, 57, 35, 65.5, 62, 14, 46.5 ]
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    console.log()
+    const result = weather.reduce((total, city) => {
+      let median = (city.temperature.high + city.temperature.low) / 2;
+      total.push(median);
+      return total;
+    }, []);
     return result;
 
     // Annotation:
