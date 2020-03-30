@@ -180,7 +180,13 @@ const modPrompts = {
     //   { mod: 4, studentsPerInstructor: 8 }
     // ]
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = mods.reduce((acc, inning) => {
+      let obj = {};
+      obj.mod = inning.mod;
+      obj.studentsPerInstructor = inning.students / inning.instructors;
+      acc.push(obj);
+      return acc;
+    }, []);
     return result;
 
     // Annotation:
@@ -215,7 +221,13 @@ const cakePrompts = {
     //    ..etc
     // ]
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = cakes.map(cake => {
+      let obj = {
+        flavor: cake.cakeFlavor,
+        inStock: cake.inStock
+      };
+      return obj;
+    });
     return result;
 
     // Annotation:
@@ -243,7 +255,7 @@ const cakePrompts = {
     // ..etc
     // ]
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = cakes.filter(cake => cake.instock > 0);
     return result;
 
     // Annotation:
@@ -254,7 +266,9 @@ const cakePrompts = {
     // Return the total amount of cakes in stock e.g.
     // 59
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = cakes.reduce((acc, cake) => {
+      return acc += cake.inStock;
+    }, 0);
     return result;
 
     // Annotation:
@@ -266,7 +280,14 @@ const cakePrompts = {
     // every cake in the dataset e.g.
     // ['dutch process cocoa', 'toasted sugar', 'smoked sea salt', 'berries', ..etc]
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = cakes.reduce((acc, cake) => {
+      cake.toppings.forEach(topping => {
+        if (!acc.find(item => item === topping)) {
+          acc.push(topping)
+        }
+      });
+      return acc;
+    }, []);
     return result;
 
     // Annotation:
@@ -284,7 +305,15 @@ const cakePrompts = {
     //    ...etc
     // }
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = cakes.reduce((acc, cake) => {
+      cake.toppings.forEach(topping => {
+        if (!acc[topping]) {
+          acc[topping] = 0;
+        }
+        acc[topping] += 1;
+      });
+      return acc;
+    }, {});
     return result;
 
     // Annotation:
@@ -387,8 +416,15 @@ const bookPrompts = {
     //  { title: 'The Curious Incident of the Dog in the Night-Time', year: 2003 }]
 
     const result = books.reduce((acc, book) => {
-      
-    });
+
+      if (book.published >= 1990) {
+        let obj = {};
+        obj.title = book.title;
+        obj.year = book.published;
+        acc.push(obj);
+      }
+      return acc;
+    }, []);
     return result;
 
     // Annotation:
