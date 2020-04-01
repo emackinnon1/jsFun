@@ -145,7 +145,7 @@ const clubPrompts = {
     });
     return acc;
   }, {});
-    // return result;
+    return result;
     console.log(result);
     // Annotation:
     // Write your annotation here as a comment
@@ -255,7 +255,7 @@ const cakePrompts = {
     // ..etc
     // ]
 
-    const result = cakes.filter(cake => cake.instock > 0);
+    const result = cakes.filter(cake => cake.inStock > 0);
     return result;
 
     // Annotation:
@@ -348,7 +348,7 @@ const classPrompts = {
     //   { roomLetter: 'G', program: 'FE', capacity: 29 }
     // ]
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = classrooms.filter(room => room.program === 'FE');
     return result;
 
     // Annotation:
@@ -363,7 +363,19 @@ const classPrompts = {
     //   beCapacity: 96
     // }
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = classrooms.reduce((acc, room) => {
+      acc.feCapacity = 0;
+      acc.beCapacity = 0;
+        classrooms.forEach(room => {
+          if (room.program == 'FE') {
+            acc.feCapacity += room.capacity;
+          } else if (room.program == 'BE') {
+            acc.beCapacity += room.capacity;
+          }
+        });
+      return acc;
+    }, {});
+
     return result;
 
     // Annotation:
