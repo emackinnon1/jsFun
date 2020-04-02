@@ -385,7 +385,9 @@ const classPrompts = {
   sortByCapacity() {
     // Return the array of classrooms sorted by their capacity (least capacity to greatest)
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = classrooms.sort((a, b) => {
+      return a.capacity - b.capacity;
+    });
     return result;
 
     // Annotation:
@@ -412,7 +414,12 @@ const bookPrompts = {
     //   'Catch-22', 'Treasure Island']
 
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = books.reduce((acc, book) => {
+      if (book.genre !== 'Horror' && book.genre !== 'True Crime') {
+        acc.push(book.title);
+      }
+      return acc;
+    }, []);
     return result;
 
     // Annotation:
@@ -478,7 +485,12 @@ const weatherPrompts = {
     // 'New Orleans, Louisiana is sunny.',
     // 'Raleigh, North Carolina is mostly sunny.' ]
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = weather.reduce((acc, place) => {
+      if (place.type.includes('sunny')) {
+        acc.push(`${place.location} is ${place.type}.`)
+      }
+      return acc;
+    }, []);
     return result;
 
     // Annotation:
@@ -494,7 +506,9 @@ const weatherPrompts = {
     //   temperature: { high: 49, low: 38 }
     // }
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = weather.reduce((highest, curr) => {
+        return highest.humidity > curr.humidity ? highest : curr;
+      }, {});
     return result;
 
     // Annotation:
